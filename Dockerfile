@@ -1,4 +1,4 @@
-FROM pytorch/pytorch:1.4-cuda10.1-cudnn7-devel
+FROM pytorch/pytorch:1.8.0-cuda11.1-cudnn8-devel
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
          libsm6 \
@@ -7,9 +7,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
          ffmpeg && \
      rm -rf /var/lib/apt/lists/*
 
-RUN /opt/conda/bin/conda install -y nodejs opencv Cython tensorflow pandas scikit-learn matplotlib seaborn jupyter jupyterlab && \
+RUN /opt/conda/bin/conda install -y nodejs Cython tensorflow pandas scikit-learn matplotlib seaborn jupyter jupyterlab && \
     /opt/conda/bin/conda install -c conda-forge tensorboardx && \
     /opt/conda/bin/conda clean -ya
+
+RUN pip install opencv-python
 
 RUN jupyter labextension install jupyterlab_tensorboard
 
